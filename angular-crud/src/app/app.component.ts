@@ -3,13 +3,13 @@ import { Employee } from './models/employee';
 import { EmployeeService } from './employee.service';
 import { FormsModule } from '@angular/forms';
 import { RouterOutlet } from '@angular/router';
-import { CommonModule } from '@angular/common'; 
+import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, FormsModule, CommonModule], 
+  imports: [RouterOutlet, FormsModule, CommonModule],
   templateUrl: 'app.component.html',
   styleUrls: ['./app.component.scss']
 })
@@ -37,7 +37,7 @@ export class AppComponent implements OnInit {
     }
     this.filteredEmployees = [...this.employees];
   }
-  
+
   addEmployee(): void {
     this.employee.id = this.nextId;
     this.employeeService.addEmployee(this.employee);
@@ -50,17 +50,22 @@ export class AppComponent implements OnInit {
   }
 
   deleteEmployee(emp: Employee): void {
+    const index = this.employees.findIndex(e => e.id === emp.id);
+    if (index !== -1) {
+      this.employeeService.deleteEmployee(emp.id);
+      this.loadEmployees();
+    }
   }
   searchEmployee(): void {
     if (!this.searchTerm.trim()) {
       this.filteredEmployees = [...this.employees];
       return;
     }
-  
+
     this.filteredEmployees = this.employees.filter(emp =>
       emp.name.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
-  
+
     this.employees = [...this.filteredEmployees];
   }
 }
