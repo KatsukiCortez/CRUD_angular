@@ -19,6 +19,13 @@
     <button (click)="addEmployee()">Agregar Empleado</button>
 
     <hr>
+      <!-- Formulario de edición -->
+    <div *ngIf="employee.id !== 0">
+      <h2>Editar Empleado</h2>
+      <input type="text" [(ngModel)]="employee.name" placeholder="Nombre">
+      <input type="text" [(ngModel)]="employee.country" placeholder="País">
+      <button (click)="saveChanges()">Guardar Cambios</button>
+    </div>
 
     <!-- Tabla para mostrar la lista de empleados -->
     <table>

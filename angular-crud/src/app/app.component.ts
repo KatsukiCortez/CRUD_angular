@@ -47,6 +47,8 @@ export class AppComponent implements OnInit {
   }
 
   editEmployee(emp: Employee): void {
+    // Clonar el objeto para evitar modificar el original directamente
+    this.employee = { ...emp };
   }
 
   deleteEmployee(emp: Employee): void {
@@ -68,4 +70,10 @@ export class AppComponent implements OnInit {
 
     this.employees = [...this.filteredEmployees];
   }
+  saveChanges(): void {
+    this.employeeService.updateEmployee(this.employee); // Actualizar empleado en el servicio
+    this.employee = { id: 0, name: '', country: '' }; // Reiniciar el formulario de edición
+    this.loadEmployees(); // Recargar la lista de empleados
+  }
+  
 }
