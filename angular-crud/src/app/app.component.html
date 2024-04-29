@@ -4,69 +4,44 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CRUD de Empleados</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #0f0c29;
-      background: -webkit-linear-gradient(to right, #24243e, #302b63, #0f0c29);
-      background: linear-gradient(to right, #24243e, #302b63, #0f0c29);
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-
-    .container {
-      background-color: rgba(255, 255, 255, 0.8);
-      border-radius: 10px;
-      padding: 20px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      text-align: center;
-    }
-
-    h1 {
-      color: #333;
-      margin-bottom: 20px;
-    }
-
-    input[type="text"] {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      box-sizing: border-box;
-    }
-
-    button {
-      background-color: #4CAF50;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background-color: #45a049;
-    }
-
-    hr {
-      margin: 20px 0;
-    }
-  </style>
 </head>
 <body>
   <div class="container">
     <h1>CRUD de Empleados</h1>
+
+    <!-- Campo de búsqueda y botón de búsqueda -->
+    <input type="text" [(ngModel)]="searchTerm" placeholder="Buscar por nombre">
+    <button (click)="searchEmployee()">Buscar</button>
+
+    <!-- Campos de entrada para agregar un empleado -->
     <input type="text" [(ngModel)]="employee.name" placeholder="Nombre">
     <input type="text" [(ngModel)]="employee.country" placeholder="País">
     <button (click)="addEmployee()">Agregar Empleado</button>
 
     <hr>
 
+    <!-- Tabla para mostrar la lista de empleados -->
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>País</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let emp of employees">
+          <td>{{ emp.id }}</td>
+          <td>{{ emp.name }}</td>
+          <td>{{ emp.country }}</td>
+          <td>
+            <button (click)="editEmployee(emp)">Editar</button>
+            <button (click)="deleteEmployee(emp)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
     <!-- <app-employee-list></app-employee-list> -->
   </div>
 </body>
